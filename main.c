@@ -6,15 +6,35 @@
 unsigned int ns[] = { 10, /* TODO: fill in "n" i.e. instance sizes */ };
 
 void fill_increasing(int *t, unsigned int n) {
-    // TODO: implement
+    for(int i = 0; i < n; i++)
+    {
+      t[i] = i + 1;
+    }
 }
 
-void fill_decreasing(int *t, unsigned int n) {
-    // TODO: implement
+void fill_decreasing(int *t, unsigned int n) { //gdy n = 100 dobrze przypisuje od największej do najmniejszej do 51, potem jest rosnąco. Czemu ???
+  for(i = 0; i < n; i++)
+  {
+    t[i] = i + 1;
+  }
+
+  for(int j = 0; j < n; j++)
+  {
+    t[j] = t[i - 1];
+    i -= 1;
+  }
 }
 
-void fill_vshape(int *t, unsigned int n) {
-    // TODO: implement
+void fill_vshape(int *t, unsigned int n) { //pierwsza największa, ostatnia druga największa (ok)
+  for(int i = 0; i < n; i++)
+  {
+    t[i] = i + 1;
+  }
+  int first = t[n - 1];
+  int last = t[n - 2];
+  t[0] = first;
+  t[n - 1] = last;
+
 }
 
 void selection_sort(int *t, unsigned int n) {
@@ -22,7 +42,23 @@ void selection_sort(int *t, unsigned int n) {
 }
 
 void insertion_sort(int *t, unsigned int n) {
-    // TODO: implement
+  int z = t.lenght; // zmienna do wielkości tablicy
+  int el; // zmienna do pobierania elementu
+  int el_dwa; // zmienna do pobrania drugiego elementu do porownania
+  for(int i = 1; i < z; i++)
+  {
+    el = t[i]; //zapamietuje wartosc, ktora jest pod t[i]
+    el_dwa = i; // zapamietuje indeks i
+    while(el_dwa > 0 && t[el_dwa - 1] > el) //element porownywany nie może być mniejszy niż zero i 
+                                               //ma być większy od elementu pierwszego 
+  {
+    t[el_dwa] = t[el_dwa - 1]; // nadpisujemy wartosc, ktora była  pod indeksem i wartoscia mniejsza po lewej 
+                               //stronie (i-1) dzieki czemu teraz pod t[i] jest wartosc wieksza niz pod t[i-1]
+    el_dwa--; //zmniejszamy indeks o 1 (tak jakbysmy teraz patrzyli w lewo w tablice)
+  }
+  t[el_dwa] = el; //przypisujemy zapisana wartosc do miejsca o 1 wcześniej w tablicy,
+  }
+
 }
 
 void quick_sort(int *t, unsigned int n) {
@@ -30,7 +66,7 @@ void quick_sort(int *t, unsigned int n) {
 }
 
 void heap_sort(int *t, unsigned int n) {
-    // TODO
+    
 }
 
 void fill_random(int *t, unsigned int n) {
