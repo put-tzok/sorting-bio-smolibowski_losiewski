@@ -40,11 +40,28 @@ void fill_vshape(int *t, unsigned int n) { //pierwsza największa, ostatnia drug
 }
 
 void selection_sort(int *t, unsigned int n) {
-    // TODO: implement
+    int z = sizeof(t)/sizeof(int);
+    int el_min;
+    int el_drugi;
+    for(int i = 0; i < z; i++)
+    {
+     el_min = i;
+     
+     for(int d = i + 1; d < z; d++)
+     {
+         el_drugi = d;
+         if(t[el_drugi] < t[el_min])
+         {
+             int temp = t[el_min];
+             t[el_min] = t[el_drugi];
+             t[el_drugi] = temp;
+         }   
+     }
+    }
 }
 
 void insertion_sort(int *t, unsigned int n) {
-  int z = t.lenght; // zmienna do wielkości tablicy
+  int z = sizeof(t)/sizeof(int); // zmienna do wielkości tablicy
   int el; // zmienna do pobierania elementu
   int el_dwa; // zmienna do pobrania drugiego elementu do porownania
   for(int i = 1; i < n; i++)
