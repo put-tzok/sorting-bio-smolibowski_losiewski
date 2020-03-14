@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-unsigned int ns[] = { 10, /* TODO: fill in "n" i.e. instance sizes */ };
+unsigned int ns[] = { 10, 100, 1000, 10000 };
 
 void fill_increasing(int *t, unsigned int n) {
     for(int i = 0; i < n; i++)
@@ -12,23 +12,15 @@ void fill_increasing(int *t, unsigned int n) {
     }
 }
 
-void fill_decreasing(int *t, unsigned int n) { //gdy n = 100 dobrze przypisuje od największej do najmniejszej do 51, potem jest rosnąco. Czemu ???
-    int f[n];
-    int g[n];
-    int i, j;
-  for(i = 0; i < n; i++)
+void fill_decreasing(int *t, unsigned int n) {
+  for(int i = 0; i < n; i++)
   {
-    g[i] = i + 1;
-  }
-
-  for(j = 0; j < n; j++)
-  {
-      f[j] = g[i - 1];
-      i--;
+    t[i] = -i;
   }
 }
 
 void fill_vshape(int *t, unsigned int n) { //pierwsza największa, ostatnia druga największa (ok)
+
   for(int i = 0; i < n; i++)
   {
     t[i] = i + 1;
@@ -37,32 +29,29 @@ void fill_vshape(int *t, unsigned int n) { //pierwsza największa, ostatnia drug
   int last = t[n - 2];
   t[0] = first;
   t[n - 1] = last;
-
 }
 
 void selection_sort(int *t, unsigned int n) {
-    int z = sizeof(t)/sizeof(int);
     int el_min;
     int el_drugi;
-    for(int i = 0; i < z; i++)
+    for(int i = 0; i < n - 1; i++)
     {
      el_min = i;
-     
-     for(int d = i + 1; d < z; d++)
+
+     for(int d = i + 1; d < n; d++)
      {
          el_drugi = d;
          if(t[el_drugi] < t[el_min])
          {
-             int temp = t[el_min];
-             t[el_min] = t[el_drugi];
-             t[el_drugi] = temp;
-         }   
+           int temp = t[el_min];
+           t[el_min] = t[el_drugi];
+           t[el_drugi] = temp;
+         }
      }
     }
 }
 
 void insertion_sort(int *t, unsigned int n) {
-  int z = sizeof(t)/sizeof(int); // zmienna do wielkości tablicy
   int el; // zmienna do pobierania elementu
   int el_dwa; // zmienna do pobrania drugiego elementu do porownania
   for(int i = 1; i < n; i++)
@@ -79,8 +68,59 @@ void insertion_sort(int *t, unsigned int n) {
 
 }
 
-void quick_sort(int *t, unsigned int n) {
-    // TODO: implement
+void swap(int *t, int i, int j)
+    {
+    int temp = t[i];
+    t[i] = t[j];
+    t[j] = temp;
+    }
+int choosePivot(int *t, int left, int right) //wybieranie pivota ze środka tablicy
+{
+    int middle = left + (right - left) / 2; // operacja do wybrania miejsca środkowego pivota,
+    int pivotValue = t[middle]; // pivot przyjmuje wartość równą integerowi środkowemu
+    swap(t, right, middle); // zamiana miejsc ostatniego ze środkowym, ostatni element do staje wartość środkowego, środkowy natomiast ostatniego,
+    return pivotValue; // zwraca wartość piwota
+}
+int partycjonowanie(int *t, int left, int right)
+{
+  int pivot_val = choosePivot(t, left, right); // pivot przyjmuje wartość ostatniego elementu
+  int granica = left - 1; // wyznaczenie granicy, mniejsze el na lewo większe na prawo od granicy,granica stoi przed pierwszym indeksem
+  int i = left; // nasz indeks
+
+  while( i < right)   //dopóki nie dojdziemy do konca tablicy
+  {
+    if( t[i] < pivot_val) // sprawdzamy czy el pod dana iteracją jest mniejszy od piwota, jesli tak no to zamiana
+    {
+      granica++;    // najpierw zamiana z el pierwszym po prawej a dopiero potem zamiana granicy, ale żeby nie zamienić elementu samego ze sobą  zwiększamy wcześniej granice
+      if(granica != i) //jeśli granica będzie różna od obecnej iteracji wykonujemy zamianę elementów,
+      {
+        swap(t, granica, i);
+      }
+    }
+    i++;
+  }           // zapewniamy aby pivot był w odpowiadającej mu pozycji,
+  granica ++; //miejsce podziału tablicy
+  if( granica != right)
+  {
+    swap(t, granica, right);
+  }
+  return granica; //indeks naszego podziału,
+}
+
+int QuickSort(int *t, int left, int right)  //partycjonowanie tablicy
+{
+  if(left < right)
+  {
+  int granica = partycjonowanie(t, left, right);
+  QuickSort(t, left, granica - 1);
+  QuickSort(t, granica + 1, right);
+}
+}
+
+
+void quick_sort(int *t, unsigned int n)
+{
+  QuickSort(t, 0, n - 1); // t to tablica, 0 to początek czyli left, n-1 to koniec tablicy czyli right,
 }
 
 void heap_sort(int *t, unsigned int n) {
