@@ -15,6 +15,7 @@ void fill_increasing(int *t, unsigned int n) {
 void fill_decreasing(int *t, unsigned int n) { //gdy n = 100 dobrze przypisuje od największej do najmniejszej do 51, potem jest rosnąco. Czemu ???
     int f[n];
     int g[n];
+    int i, j;
   for(i = 0; i < n; i++)
   {
     g[i] = i + 1;
