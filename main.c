@@ -19,16 +19,21 @@ void fill_decreasing(int *t, unsigned int n) {
   }
 }
 
-void fill_vshape(int *t, unsigned int n) { //pierwsza największa, ostatnia druga największa (ok)
-
-  for(int i = 0; i < n; i++)
-  {
-    t[i] = i + 1;
-  }
-  int first = t[n - 1];
-  int last = t[n - 2];
-  t[0] = first;
-  t[n - 1] = last;
+void fill_vshape(int *t, unsigned int n) {
+     int *begin;
+            int *end;
+			begin = t;
+            end = t + n - 1;
+            int k = n;
+            while (end - begin > 1)
+            {
+                *begin = k;
+                k--;
+                *end = k;
+                k--;
+                begin++;
+                end--;
+            }
 }
 
 void selection_sort(int *t, unsigned int n) {
