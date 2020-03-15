@@ -20,19 +20,19 @@ void fill_decreasing(int *t, unsigned int n) {
 }
 
 void fill_vshape(int *t, unsigned int n) {
-     int *begin;
-            int *end;
-			begin = t;
-            end = t + n - 1;
-            int k = n;
-            while (end - begin > 1)
+	int *begin; // tworzymy wskaźnik mający przechować pierwszą wartość liczbową tablicy,
+	int *end; // tworzymy wskaźnik mający przechować ostatnią wartość liczbową tablicy
+	begin = t; // przypisujemy wskaźnikowi miejsce tablicy t[0]
+        end = t + n - 1; // przypisujemy wskaźnikowi miejsce ostatnie tablicy (n-1) <- ponieważ jeśli mamy tablice np 100 el. to ostatni element jest na miejscu 99
+        int k = n; // zapamiętujemy rozmiar tablicy,
+        while (end - begin > 1) // 
             {
-                *begin = k;
-                k--;
-                *end = k;
-                k--;
-                begin++;
-                end--;
+                *begin = k; //do miejsca t[0] przypisywana jest wartość k = n np = 100;
+                k--; //dekrementacja k; (99)
+                *end = k; // do miejsca t[n-1] przypisywana jest wartość k mniejsza o 1 np jesli k = n = 100, to teraz jest to 99,   
+                k--; // dekrementacja k np 98
+                begin++; //begin teraz będzie wskazywało na t[1] msc tablicy;
+                end--; // end teraz wskazuje na t[n-2] msc tablicy;
             }
 }
 
